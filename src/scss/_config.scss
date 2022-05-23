@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Qwigley&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap");
+// @import url("../fonts/GTWalsheimPro/stylesheet.css");
+@import url(//db.onlinewebfonts.com/c/0abeb2471faeb5269db428b9eac2075e?family=GT+Walsheim+Pro+Regular);
+$primary-color: #3e94fe;
+$secondary-color: #495057;
+$text-color: rgba(18, 23, 30, 0.654531);
+$desktop-view: 140.4rem;
+$mobile-view: 50rem;
+$mobile: 34em;
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "GT Walsheim Pro Regular", serif;
+  // color: blue;
+}
+html {
+  font-size: 62.5%;
+  @include mobile {
+    font-size: 59%;
+  }
+  @media (max-width: 30em) {
+    font-size: 40%;
+  }
+}
+@mixin transition-ease {
+  transition: all 0.5s ease-in-out;
+}
+@mixin Flebo-parallel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@function set-test-color($color) {
+  @if (lightness($color) > 40%) {
+    @return #000;
+  } @else {
+    @return white;
+  }
+}

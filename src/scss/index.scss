@@ -1,0 +1,47 @@
+@import "config";
+body {
+  // background-color: $secondary-color;
+  // height: 100vh;
+
+  font-size: 2.4rem;
+  // font-family: "Rubik", sans-serif;
+
+  margin: 0;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+section {
+  margin-bottom: 8rem;
+}
+footer {
+  background-color: rgba(62, 148, 254, 0.3);
+}
+@mixin btn {
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  color: white;
+  background-color: $primary-color;
+  // height: 3.5rem;
+  border-radius: 10px;
+  padding: 2rem 6rem;
+  @include Flebo-parallel;
+
+  // font-size: 1.4rem;
+  font-weight: 500;
+}
+.container {
+  max-width: $desktop-view;
+  margin: 0 auto;
+  padding: 0 7rem;
+  @include mobile {
+    max-width: $mobile-view;
+    padding: 0 3rem;
+  }
+}
+.selected {
+  background-color: white;
+  color: $primary-color;
+  border: 1px solid $primary-color;
+}
