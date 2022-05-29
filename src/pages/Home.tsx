@@ -9,8 +9,8 @@ import { Story } from "../components/model";
 const Home = () => {
   const [CurrentStoryList, setCurrentStoryList] = useState("Top Stories");
   const [storyIds, setStoryIds] = useState<any>();
-  const [fullyLoaded, setFullyLoaded] = useState(false);
-  const [url, setUrl] = useState("topstories.json?print=pretty");
+  const [fullyLoaded, setFullyLoaded] = useState<Boolean>(false);
+  const [url, setUrl] = useState<String>("topstories.json?print=pretty");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<any>(null);
 
@@ -47,12 +47,14 @@ const Home = () => {
   return (
     <div className="home container">
       <h1>Hacker News Clone</h1>
-      <div>list :{CurrentStoryList}</div>
+
       <nav>
-        <ul>
+        <ul className="nav">
           <li>
             <button
-              className={CurrentStoryList == "Top Stories" ? "selected" : ""}
+              className={
+                CurrentStoryList == "Top Stories" ? "selected btn" : "btn"
+              }
               onClick={() => {
                 handleApiChange("topstories.json?print=pretty", "Top Stories");
               }}
@@ -62,7 +64,9 @@ const Home = () => {
           </li>
           <li>
             <button
-              className={CurrentStoryList == "New Stories" ? "selected" : ""}
+              className={
+                CurrentStoryList == "New Stories" ? "selected btn" : "btn"
+              }
               onClick={() => {
                 handleApiChange("newstories.json?print=pretty", "New Stories");
               }}
@@ -72,7 +76,9 @@ const Home = () => {
           </li>
           <li>
             <button
-              className={CurrentStoryList == "Best Stories" ? "selected" : ""}
+              className={
+                CurrentStoryList == "Best Stories" ? "selected btn" : "btn"
+              }
               onClick={() => {
                 handleApiChange(
                   "beststories.json?print=pretty",
@@ -85,21 +91,16 @@ const Home = () => {
           </li>
         </ul>
       </nav>
-      {/* {error && <div>{error}...</div>} */}
 
-      <StoryList
-        storyIds={storyIds}
-        fullyLoaded={fullyLoaded}
-        setFullyLoaded={setFullyLoaded}
-      />
-
-      {/* {isLoading && <div>Loading...</div>} */}
-      {/* {blogs && (
-        <BlogList
-          blogs={blogs.filter((blogs) => blogs.author === blogFilter)}
-          title={`${blogFilter}'s  Blogs!`}
+      <div className="storylist">
+        <StoryList
+          error={error}
+          setError={setError}
+          storyIds={storyIds}
+          fullyLoaded={fullyLoaded}
+          setFullyLoaded={setFullyLoaded}
         />
-      )} */}
+      </div>
     </div>
   );
 };
