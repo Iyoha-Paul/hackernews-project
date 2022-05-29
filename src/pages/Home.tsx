@@ -11,16 +11,13 @@ const Home = () => {
   const [storyIds, setStoryIds] = useState<any>();
   const [fullyLoaded, setFullyLoaded] = useState(false);
   const [url, setUrl] = useState("topstories.json?print=pretty");
-  // const { data: items, isLoading, error } = UseFetchData(url);
   const [isLoading, setIsLoading] = useState(true);
-
   const [error, setError] = useState<any>(null);
 
   // FUNCTONSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-  useEffect(() => {
-    fetchData(url);
-  }, []);
+
   const fetchData = async (url: String) => {
+    setStoryIds("");
     setIsLoading(true);
     try {
       const response = await api.get(`${url}`);
@@ -38,16 +35,19 @@ const Home = () => {
       }
     }
   };
-
+  useEffect(() => {
+    fetchData(url);
+  }, [url]);
   // console.log(storyIds);
   const handleApiChange = (api: string, storyType: String | any) => {
     setUrl(api);
     setCurrentStoryList(storyType);
-    fetchData(url);
+    // fetchData(url);
   };
   return (
     <div className="home container">
       <h1>Hacker News Clone</h1>
+      <div>list :{CurrentStoryList}</div>
       <nav>
         <ul>
           <li>
@@ -62,15 +62,12 @@ const Home = () => {
           </li>
           <li>
             <button
-              className={CurrentStoryList == "Latest Stories" ? "selected" : ""}
+              className={CurrentStoryList == "New Stories" ? "selected" : ""}
               onClick={() => {
-                handleApiChange(
-                  "newstories.json?print=pretty",
-                  "Latest Stories"
-                );
+                handleApiChange("newstories.json?print=pretty", "New Stories");
               }}
             >
-              Latest Stories
+              New Stories
             </button>
           </li>
           <li>
@@ -89,11 +86,13 @@ const Home = () => {
         </ul>
       </nav>
       {/* {error && <div>{error}...</div>} */}
+
       <StoryList
         storyIds={storyIds}
         fullyLoaded={fullyLoaded}
         setFullyLoaded={setFullyLoaded}
       />
+
       {/* {isLoading && <div>Loading...</div>} */}
       {/* {blogs && (
         <BlogList
