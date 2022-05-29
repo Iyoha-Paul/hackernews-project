@@ -7,6 +7,7 @@ const StoryList = ({ storyIds, fullyLoaded, setFullyLoaded }: any) => {
   const [storyDetailsList, setStoryDetailsList] = useState<[Story]>();
   let yes: any;
   useEffect(() => {
+    setFullyLoaded(false);
     // const getStoryDetails = async (storyIds: [Number]) => {
     //   setFullyLoaded(false);
     //   setStoryDetailsList([{}]);
@@ -39,7 +40,9 @@ const StoryList = ({ storyIds, fullyLoaded, setFullyLoaded }: any) => {
           `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`
         );
         result = response.data;
+        console.log(response.data);
         return result;
+
         // storyDetailsList?.push(response.data);
         // console.log(storyDetailsList);
       } catch (err: any) {
@@ -57,16 +60,21 @@ const StoryList = ({ storyIds, fullyLoaded, setFullyLoaded }: any) => {
 
     // return result;
     const getFullDetails = () => {
-      Promise.all(storyIds)
-        .then(() => {
-          yes = storyIds.map((storyId: number) => getStoryDetailsTest(storyId));
-          return yes;
-        })
-        .then((values) => {
-          setStoryDetailsList(values);
-          // console.log(storyDetailsList);
-          setFullyLoaded(true);
-        });
+      if (storyIds) {
+        Promise.all(
+          storyIds.map((storyId: number) => getStoryDetailsTest(storyId))
+        )
+          // .then(() => {
+          //   // yes = storyIds.map((storyId: number) => getStoryDetailsTest(storyId));
+          //   return yes;
+          // })
+          .then((values: any) => {
+            setStoryDetailsList(values);
+            // console.log(storyDetailsList);
+            setFullyLoaded(true);
+            console.log("yes");
+          });
+      }
       // console.log(yes);
     };
     getFullDetails();
@@ -85,7 +93,8 @@ const StoryList = ({ storyIds, fullyLoaded, setFullyLoaded }: any) => {
 
   return (
     <div>
-      {fullyLoaded && console.log(yes)}
+      {!fullyLoaded && <div>Loading...</div>}
+      {fullyLoaded && <div>Done...</div>}
       {/* {fullyLoaded && (
         <div>
           {" "}
